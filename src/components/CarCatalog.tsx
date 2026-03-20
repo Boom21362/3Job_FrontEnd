@@ -8,16 +8,17 @@ interface Car {
 }
 
 interface CarCatalogProps {
-  carJson: {
+  carJson: Promise<{
     count: number;
     data: Car[];
-  };
+  }>;
 }
 
 export default async function CarCatalog({ carJson }: CarCatalogProps) {
   const carJsonReady = await carJson
   return (
     <>
+       <h1 className="text-xl font-medium">Select Your Travel Partner</h1>
       <p className="text-xl font-semibold">
         Explore {carJsonReady.count} models in our catalog
       </p>
@@ -35,7 +36,7 @@ export default async function CarCatalog({ carJson }: CarCatalogProps) {
         {carJsonReady.data.map((carItem) => (
           <Link 
             href={`/car/${carItem.id}`} 
-            className="w-1/5"
+            className="w-[100%] sm:w-[50%] md:w-[30%] lg:w-[25%] p-2 sm:p-4 md:p-4 lg:p-8"
             key={carItem.id}
           >
             <ProductCard carName={carItem.model} imgSrc={carItem.picture} />

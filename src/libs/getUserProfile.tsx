@@ -1,6 +1,7 @@
 export default async function getUserProfile(token:string){
 
-    const response = await fetch("http://localhost:5000/api/v1/auth/me",{
+    console.log("Fetching profile with token:", token ? "Token Received" : "MISSING TOKEN");
+    const response = await fetch("https://3-job-back-end.vercel.app/api/v1/auth/me",{
         method: "GET",
         headers:{
             authorization: `Bearer ${token}`

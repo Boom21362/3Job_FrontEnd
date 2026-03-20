@@ -1,21 +1,20 @@
 import { resolve } from "path"
 
-export default async function userLogin(userEmail:string,userPassword:string) {
-    
-    const response = await fetch("http://localhost:5000/api/v1/auth/login",{
-        method: "POST",
-        headers:{
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            email:userEmail,
-            password: userPassword
-        })
-    })
+export default async function userLogin(email:string, password:string) {
+    console.log("--- [LIB] Attempting fetch to Backend ---");
+    try {
+        const response = await fetch("https://3-job-back-end.vercel.app/api/v1/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+        });
 
-    if(!response.ok){
-        throw new Error("Failed to log-in")
+        console.log("--- [LIB] Fetch Status ---", response.status);
+        const data = await response.json();
+        console.log("--- [LIB] Backend Data ---", data);
+        return data;
+    } catch (err) {
+        console.error("--- [LIB] FETCH CRASHED ---", err);
+        throw err; // Send it back to authorize
     }
-
-    return await response.json()
 }

@@ -8,18 +8,20 @@ import Link from 'next/link';
 export default async function TopMenu(){
     
     const session = await getServerSession(authOptions)
-
+    
     return(
         <div className={styles.menucontainer}>
-            <Image src={'/img/logo.avif'} className={styles.logoimg}
+            <Image src={'/img/3joblogo.png'} className={styles.logoimg}
             alt = 'logo'
             width={0} height={0} sizes='100vh'/>
-            <TopMenuItem title='Select Car' pageref='/car'/>
-            <TopMenuItem title='Reservations' pageref='/reservations'/>
-            <TopMenuItem title='About' pageref='/about'/>
+            <TopMenuItem title='Companies' pageref='/car'/>
+            <TopMenuItem title='Make Interviews' pageref='/reservations'/>
+            <TopMenuItem title='Your Profile' pageref='/profile'/>
             <div className='flex flex-row absolute right-0'>
-                <TopMenuItem title='Cart' pageref='/cart'/>'
-
+                <div className='flex items-center h-full px-2 py-3 text-cyan-600 text-sm'>
+                <TopMenuItem title='Cart' pageref='/cart'/>
+                <TopMenuItem title='Register' pageref='/auth/register'/>
+                </div>
             {
                 session? <Link href="/api/auth/signout">
                     <div className='flex items-center h-full px-2 text-cyan-600 text-sm'>
@@ -27,7 +29,7 @@ export default async function TopMenu(){
                     </div>
                 </Link>
                 :
-                <Link href="/api/auth/signin">
+                <Link href="/auth/signin">
                     <div className='flex items-center h-full px-2 text-cyan-600 text-sm'>
                         Sign-In
                     </div>
