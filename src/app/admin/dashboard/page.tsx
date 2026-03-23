@@ -12,7 +12,7 @@ export default async function AdminDashboard() {
     }
 
     return (
-        <main className="min-h-[80vh] flex flex-col items-center justify-center bg-slate-50 p-6">
+        <main className="h-[calc(100vh-50px)] overflow-hidden flex flex-col items-center justify-center bg-[#F5F5DC] ">
             <h1 className="text-4xl font-extrabold text-[#0062AD] mb-2">Admin Control Center</h1>
             <p className="text-slate-500 mb-12 text-lg text-center">
                 Welcome back, {session.user.name}. What would you like to manage today?
@@ -44,7 +44,7 @@ export default async function AdminDashboard() {
 
             </div>
 
-            <Link href="/profile" className="mt-12 text-slate-400 hover:text-[#0062AD] transition underline decoration-dotted">
+            <Link href="/profile" className="mt-12 text-slate-700 hover:text-[#0062AD] transition-all underline decoration-slate-400 decoration-1 underline-offset-4">
                 Back to my profile
             </Link>
         </main>
