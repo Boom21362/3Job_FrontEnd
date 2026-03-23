@@ -11,9 +11,11 @@ export default async function TopMenu(){
     
     return(
         <div className={styles.menucontainer}>
+            <Link href="/">
             <Image src={'/img/3joblogo.png'} className={styles.logoimg}
             alt = 'logo'
             width={0} height={0} sizes='100vh'/>
+            </Link>
             <TopMenuItem title='Companies' pageref='/car'/>
             <TopMenuItem title='Make Interviews' pageref='/reservations'/>
             <TopMenuItem title='Your Profile' pageref='/profile'/>
