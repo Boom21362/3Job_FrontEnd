@@ -21,7 +21,7 @@ export default async function AdminDashboard() {
             <div className="flex flex-col md:flex-row gap-8 w-full max-w-4xl">
                 
                 {/* Button 1: Manage Companies */}
-                <Link href="/admin/companies" className="flex-1 group">
+                <Link href="/company" className="flex-1 group">
                     <div className="bg-white p-10 rounded-2xl shadow-md border-2 border-transparent hover:border-[#0062AD] hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center h-full">
                         <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#0062AD] transition-colors">
                             <span className="text-3xl">🏢</span>

@@ -19,103 +19,66 @@ interface CompanyListProps {
 }
 
 export default function CompanyList({ companies }: CompanyListProps) {
-
-  // เก็บค่าที่ user พิมพ์ใน search bar
   const [search, setSearch] = useState("")
 
-  // กรองบริษัทที่ชื่อหรือ description ตรงกับคำค้นหา
   const filtered = companies.filter((c) =>
     c.name.toLowerCase().includes(search.toLowerCase()) ||
     c.description.toLowerCase().includes(search.toLowerCase())
   )
 
   return (
-    <div>
-      {/* Search bar ที่ใช้งานได้จริง */}
-      <div style={{ position: "relative", marginBottom: "36px" }}>
+    <div className="w-full max-w-7xl mx-auto px-4">
+      {/* Search bar */}
+      <div className="relative mb-9">
         <input
           type="text"
-          placeholder="Search"
+          placeholder="Search Companies..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          style={{
-            width: "100%",
-            height: "75px",
-            background: "#D9D9D9",
-            boxShadow: "0px 4px 4px rgba(0,0,0,0.25)",
-            borderRadius: "10px",
-            border: "none",
-            paddingLeft: "29px",
-            fontFamily: "Inter",
-            fontWeight: 600,
-            fontSize: "25px",
-            outline: "none",
-          }}
+          className="w-full h-[70px] bg-[#D9D9D9] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] rounded-xl border-none px-8 font-semibold text-xl outline-none placeholder:text-gray-500"
         />
       </div>
 
-      {/* แสดง card บริษัทที่ผ่านการ filter แล้ว */}
-      <div className="flex flex-col gap-4">
+      {/* Company Cards List */}
+      <div className="flex flex-col gap-6">
         {filtered.length === 0 && (
-          <p style={{ color: "#969696", fontSize: "20px", textAlign: "center" }}>
-            ไม่พบบริษัทที่ค้นหา
+          <p className="text-[#969696] te xt-xl text-center mt-10">
+            Company Not Found
           </p>
         )}
 
         {filtered.map((company) => (
-          // กดทั้ง card เพื่อไปหน้ารายละเอียดบริษัท
           <Link key={company._id} href={`/company/${company._id}`}>
-            <div
-              className="flex items-center gap-4 cursor-pointer hover:-translate-y-1 transition-all duration-200"
-              style={{
-                background: "#FFFFFF",
-                boxShadow: "inset 0px 4px 4px rgba(0,0,0,0.25)",
-                borderRadius: "30px",
-                padding: "15px",
-                width: "100%",
-                height: "180px",
-              }}
-            >
-              {/* กล่องรูป ใช้ตัวอักษรแรกแทน logo */}
-              <div
-                style={{
-                  width: "253px", height: "150px",
-                  background: "#E9E9E9", borderRadius: "4px",
-                  flexShrink: 0, display: "flex",
-                  alignItems: "center", justifyContent: "center",
-                  fontSize: "25px", fontWeight: 600, color: "#000",
-                }}
-              >
+            <div className="group flex flex-col md:flex-row items-center gap-6 bg-white shadow-[inset_0px_4px_4px_rgba(0,0,0,0.15)] rounded-[30px] p-6 hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-[#0062AD]/30">
+              
+              {/* Logo / Avatar Box */}
+              <div className="w-full md:w-[250px] h-[150px] bg-[#E9E9E9] rounded-xl shrink-0 flex items-center justify-center text-4xl font-bold text-slate-700 shadow-sm">
                 {company.name.charAt(0).toUpperCase()}
               </div>
 
-              {/* ชื่อและ description จาก database */}
-              <div className="flex flex-col flex-1" style={{ gap: "12px" }}>
-                <span style={{
-                  fontFamily: "Inter", fontWeight: 600,
-                  fontSize: "25px", color: "#000000",
-                }}>
+              {/* Text Content */}
+              <div className="flex flex-col flex-1 min-w-0 w-full gap-2">
+                <h2 className="font-bold text-2xl md:text-3xl text-black truncate">
                   {company.name}
-                </span>
-                <span style={{
-                  fontFamily: "Inter", fontWeight: 600,
-                  fontSize: "25px", color: "#969696",
-                }}>
+                </h2>
+                
+                {/* Fixed Overlap: Use line-clamp and remove fixed font sizes */}
+                <p className="font-medium text-lg text-[#969696] leading-snug line-clamp-3 md:line-clamp-2">
                   {company.description}
-                </span>
+                </p>
+                
+                {/* Specializations (Bonus: adds extra context) */}
+                <div className="flex flex-wrap gap-2 mt-1">
+                    {company.specializations?.slice(0, 3).map((s, i) => (
+                        <span key={i} className="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full font-bold">
+                            {s}
+                        </span>
+                    ))}
+                </div>
               </div>
 
-              {/* ปุ่ม Booking Interview */}
-              <div style={{
-                width: "187px", height: "88px",
-                background: "rgba(0,98,173,0.9)",
-                boxShadow: "0px 4px 4px rgba(0,0,0,0.25)",
-                borderRadius: "10px", display: "flex",
-                alignItems: "center", justifyContent: "center",
-                flexShrink: 0, fontFamily: "Inter",
-                fontWeight: 600, fontSize: "25px",
-                color: "#FFFFFF", textAlign: "center",
-              }}>
+              {/* Booking Button */}
+              <div className="w-full md:w-[180px] h-[80px] bg-[#0062AD] hover:bg-[#004a82] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] rounded-xl flex items-center justify-center shrink-0 font-bold text-lg text-white text-center px-4 transition-colors">
                 Booking Interview
               </div>
             </div>

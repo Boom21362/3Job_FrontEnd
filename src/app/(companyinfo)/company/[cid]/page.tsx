@@ -1,88 +1,85 @@
-import getCompany from "@/libs/getCompany"
-import { getServerSession } from "next-auth"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
-import Link from "next/link"
+import getCompany from "@/libs/getCompany";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import Link from "next/link";
+import Image from "next/image"; // Recommended for Next.js
 
 export default async function CompanyDetailPage({
   params,
 }: {
-  params: Promise<{ cid: string }>
+  params: Promise<{ cid: string }>;
 }) {
-  const { cid } = await params
+  const { cid } = await params;
 
-  // ดึงข้อมูลบริษัทจาก API โดยใช้ id จาก URL
-  const companyData = await getCompany(cid)
-  const company = companyData.data
+  // Fetch company data
+  const companyData = await getCompany(cid);
+  const company = companyData.data;
 
-  // เช็ค session ว่า user เป็น admin หรือเปล่า
-  const session = await getServerSession(authOptions)
-  const isAdmin = session?.user?.role === "admin"
+  // Check session and admin role
+  const session = await getServerSession(authOptions);
+  const isAdmin = session?.user?.role === "admin";
+
+  // Helper to handle Google Drive image links if necessary
+  const getImageUrl = (url: string) => {
+    if (!url) return null;
+    const driveMatch = url.match(/\/d\/(.+?)\/(view|edit|usp)/);
+    if (driveMatch && driveMatch[1]) {
+      return `https://lh3.googleusercontent.com/d/${driveMatch[1]}`;
+    }
+    return url;
+  };
+
+  const bannerImg = getImageUrl(company.compbannersrc);
+  const logoImg = getImageUrl(company.compimgsrc);
+  console.log(logoImg)
+  console.log(bannerImg)
 
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(180deg, #F5F5DC 53.85%, rgba(255,255,255,0.1) 100%)",
-        padding: "28px 60px",
-        fontFamily: "Inter, sans-serif",
-      }}
-    >
-      {/* Banner บนสุด */}
-      <div
-        style={{
-          background: "#D9D9D9",
-          borderRadius: "16px",
-          height: "180px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "#888",
-          fontSize: "24px",
-          fontWeight: 600,
-        }}
-      >
-        Banner
-      </div>
-
-      {/* Avatar + ชื่อ + ปุ่ม */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "16px",
-          marginTop: "-30px",
-          marginBottom: "32px",
-        }}
-      >
-        {/* Avatar ตัวอักษรแรกของชื่อบริษัท */}
-        <div
-          style={{
-            width: "100px", height: "100px",
-            background: "#1a1a2e",
-            borderRadius: "16px",
-            border: "4px solid #F5F5DC",
-            boxShadow: "0 4px 16px rgba(0,0,0,0.25)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: "40px", fontWeight: 700, color: "#fff",
-            flexShrink: 0,
-          }}
-        >
-          {company.name.charAt(0).toUpperCase()}
-        </div>
-
-        {/* ชื่อบริษัท + specialization tags */}
-        <div style={{ flex: 1 }}>
-          <div style={{ fontSize: "28px", fontWeight: 700, color: "#000", letterSpacing: "-0.5px", marginBottom: "6px" }}>
+    <main className="min-h-screen bg-[#F5F5DC] p-4 md:p-8 lg:px-[60px] font-sans">
+      
+      {/* 1. Banner Section (Now uses company.banner) */}
+      <div className="relative w-full h-[220px] rounded-2xl overflow-hidden shadow-inner bg-[#D9D9D9]">
+        {bannerImg ? (
+          <img 
+            src={bannerImg} 
+            alt="Company Banner" 
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-[#888] text-2xl font-semibold">
             {company.name}
           </div>
-          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+        )}
+      </div>
+
+      {/* 2. Header Section (Avatar + Name + Buttons) */}
+      <div className="flex flex-col md:flex-row items-center md:items-end gap-6 -mt-12 mb-10 px-4">
+        
+        {/* Avatar (Now uses company.logo) */}
+        <div className="w-[140px] h-[140px] bg-[#1a1a2e] rounded-3xl border-4 border-[#F5F5DC] shadow-2xl flex items-center justify-center overflow-hidden shrink-0">
+          {logoImg ? (
+            <img 
+              src={logoImg} 
+              alt="Logo" 
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <span className="text-5xl font-bold text-white">
+              {company.name.charAt(0).toUpperCase()}
+            </span>
+          )}
+        </div>
+
+        {/* Name and Tags */}
+        <div className="flex-1 text-center md:text-left pb-2">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-3 tracking-tight">
+            {company.name}
+          </h1>
+          <div className="flex flex-wrap gap-2 justify-center md:justify-start">
             {company.specializations.map((spec: string, i: number) => (
-              <span
-                key={i}
-                style={{
-                  fontSize: "12px", background: "#E6F1FB", color: "#0C447C",
-                  borderRadius: "20px", padding: "3px 12px", fontWeight: 600,
-                }}
+              <span 
+                key={i} 
+                className="text-xs bg-[#E6F1FB] text-[#0C447C] rounded-full px-4 py-1.5 font-bold shadow-sm"
               >
                 {spec}
               </span>
@@ -90,72 +87,73 @@ export default async function CompanyDetailPage({
           </div>
         </div>
 
-        {/* ปุ่ม: admin เห็น Delete + Edit, ทุกคนเห็น Booking */}
-        <div style={{ display: "flex", gap: "10px", alignItems: "center", flexShrink: 0 }}>
+        {/* Action Buttons Group */}
+        <div className="flex flex-wrap gap-3 justify-center shrink-0 pb-2">
           {isAdmin && (
             <>
-              {/* ปุ่ม Delete เฉพาะ admin */}
-              <button
-                style={{
-                  width: "150px", height: "52px", background: "#C62828",
-                  borderRadius: "10px", border: "none", color: "#fff",
-                  fontSize: "14px", fontWeight: 700, cursor: "pointer",
-                }}
-              >
+              <button className="w-[140px] h-[52px] bg-[#C62828] hover:bg-red-700 rounded-xl text-white font-bold text-sm transition-colors shadow-md">
                 Delete Company
               </button>
-
-              {/* ปุ่ม Edit เฉพาะ admin */}
               <Link href={`/company/${cid}/edit`}>
-                <div
-                  style={{
-                    width: "150px", height: "52px", background: "#008EFB",
-                    borderRadius: "10px", color: "#fff", fontSize: "14px",
-                    fontWeight: 700, cursor: "pointer",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                  }}
-                >
+                <div className="w-[140px] h-[52px] bg-[#008EFB] hover:bg-blue-500 rounded-xl text-white font-bold text-sm flex items-center justify-center transition-colors shadow-md">
                   Edit Company
                 </div>
               </Link>
             </>
           )}
-
-          {/* ปุ่ม Booking ทุกคนเห็น */}
           <Link href={`/interviews/create?companyId=${cid}`}>
-            <div
-              style={{
-                width: "150px", height: "52px", background: "#0062AD",
-                borderRadius: "10px", color: "#fff", fontSize: "14px",
-                fontWeight: 700, cursor: "pointer", textAlign: "center",
-                lineHeight: 1.3, display: "flex", alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              Booking<br />Interview
+            <div className="w-[140px] h-[52px] bg-[#0062AD] hover:bg-[#004a82] rounded-xl text-white font-bold text-sm flex items-center justify-center text-center leading-tight transition-all shadow-md active:scale-95">
+              Booking<br/>Interview
             </div>
           </Link>
         </div>
       </div>
 
-      {/* ข้อมูลบริษัท */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-        <div style={{ fontSize: "18px", color: "#000" }}>
-          <strong>Phone Number:</strong> {company.tel}
+      {/* 3. INFO BOX */}
+      <div className="bg-white/60 backdrop-blur-md rounded-[32px] p-8 md:p-12 shadow-xl border border-white/40 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6">
+          <div className="space-y-6">
+            <div className="flex flex-col">
+              <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">Phone Number</span>
+              <span className="text-xl text-slate-800 font-medium">{company.tel}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">Email / Support</span>
+              <span className="text-xl text-slate-800 font-medium truncate">{company.website}</span>
+            </div>
+          </div>
+          
+          <div className="space-y-6">
+            <div className="flex flex-col">
+              <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">Office Address</span>
+              <span className="text-xl text-slate-800 font-medium leading-relaxed">{company.address}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">Official Website</span>
+              <a href={`https://${company.website}`} target="_blank" className="text-xl text-blue-600 font-medium hover:underline truncate">
+                {company.website}
+              </a>
+            </div>
+          </div>
         </div>
-        <div style={{ fontSize: "18px", color: "#000" }}>
-          <strong>Email:</strong> {company.website}
-        </div>
-        <div style={{ fontSize: "18px", color: "#000" }}>
-          <strong>Address:</strong> {company.address}
-        </div>
-        <div style={{ fontSize: "18px", color: "#000" }}>
-          <strong>Website:</strong> {company.website}
-        </div>
-        <div style={{ fontSize: "18px", color: "#000", marginTop: "6px", lineHeight: 1.7 }}>
-          <strong>Description:</strong> {company.description}
+
+        {/* 4. DESCRIPTION */}
+        <div className="hidden sm:block mt-10 pt-10 border-t border-slate-200/60">
+          <h3 className="text-2xl font-bold text-slate-900 mb-4">Company Description</h3>
+          <p className="text-slate-600 text-lg leading-relaxed max-w-5xl">
+            {company.description}
+          </p>
         </div>
       </div>
+
+      <div className="flex justify-center pb-10">
+        <Link 
+          href="/company" 
+          className="text-slate-500 hover:text-[#0062AD] transition-all underline underline-offset-8 decoration-1 decoration-slate-300 hover:decoration-[#0062AD] font-medium"
+        >
+          Back to Companies
+        </Link>
+      </div>
     </main>
-  )
+  );
 }

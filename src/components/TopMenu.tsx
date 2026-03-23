@@ -16,7 +16,7 @@ export default async function TopMenu(){
             alt = 'logo'
             width={0} height={0} sizes='100vh'/>
             </Link>
-            <TopMenuItem title='Companies' pageref='/car'/>
+            <TopMenuItem title='Companies' pageref='/company'/>
             <TopMenuItem title='Make Interviews' pageref='/reservations'/>
             <TopMenuItem title='Your Profile' pageref='/profile'/>
             <div className='flex flex-row absolute right-0'>
