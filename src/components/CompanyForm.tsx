@@ -4,12 +4,14 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 
 interface Company {
-  name?: string
-  tel?: string
-  website?: string
-  address?: string
-  description?: string
-  complogosrc?: string // Added to support existing links
+  _id: string
+  name: string
+  description: string
+  address: string
+  tel: string
+  website: string
+  specializations: string[]
+  complogosrc?: string 
   compbannersrc?: string
 }
 
@@ -36,9 +38,9 @@ export default function CompanyForm({ company, companyId }: CompanyFormProps) {
   // Helper function to convert Google Drive "view" links to "direct" image links
   const getDirectDriveUrl = (url: string) => {
     if (!url) return null;
-    const match = url.match(/\/d\/(.+?)\/(view|edit|usp)/);
+    const match = url.match(/\/d\/(.+?)\/(view|edit|usp|share)/);
     if (match && match[1]) {
-      return `https://lh3.googleusercontent.com/u/0/d/${match[1]}`;
+      return `https://lh3.googleusercontent.com/d/${match[1]}`;
     }
     return url; // Return as is if it's already a direct link or not a drive link
   }

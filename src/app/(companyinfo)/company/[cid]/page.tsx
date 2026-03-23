@@ -31,18 +31,20 @@ export default async function CompanyDetailPage({
 
   const bannerImg = getImageUrl(company.compbannersrc);
   const logoImg = getImageUrl(company.compimgsrc);
-  console.log(logoImg)
   console.log(bannerImg)
+  console.log(logoImg)
 
   return (
-    <main className="min-h-screen bg-[#F5F5DC] p-4 md:p-8 lg:px-[60px] font-sans">
+    // Replaced relative with static (default) so children's fixed/absolute positioning is relative to the viewport
+    <main className="min-h-screen bg-[#F5F5DC] p-4 md:p-8 lg:px-[60px] font-sans ">
       
-      {/* 1. Banner Section (Now uses company.banner) */}
-      <div className="relative w-full h-[220px] rounded-2xl overflow-hidden shadow-inner bg-[#D9D9D9]">
+      {/* 1. Banner Section */}
+      <div className="absolute top-0 left-0 right-0 z-0 w-full h-[250px] overflow-hidden shadow-inner bg-[#D9D9D9] rounded-b-3xl">
         {bannerImg ? (
           <img 
             src={bannerImg} 
-            alt="Company Banner" 
+            alt="Company Banner"
+            referrerPolicy="no-referrer" 
             className="w-full h-full object-cover"
           />
         ) : (
@@ -53,25 +55,36 @@ export default async function CompanyDetailPage({
       </div>
 
       {/* 2. Header Section (Avatar + Name + Buttons) */}
-      <div className="flex flex-col md:flex-row items-center md:items-end gap-6 -mt-12 mb-10 px-4">
+      {/* CHANGED:
+          - -mt-12 to mt-[180px] to push this content *over* the bottom edge of the banner.
+          - Removed px-4 and added p-4.
+      */}
+      <div className="flex flex-col md:flex-row items-center md:items-end gap-6 mt-[180px] mb-10 p-4">
         
-        {/* Avatar (Now uses company.logo) */}
-        <div className="w-[140px] h-[140px] bg-[#1a1a2e] rounded-3xl border-4 border-[#F5F5DC] shadow-2xl flex items-center justify-center overflow-hidden shrink-0">
-          {logoImg ? (
-            <img 
-              src={logoImg} 
-              alt="Logo" 
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <span className="text-5xl font-bold text-white">
-              {company.name.charAt(0).toUpperCase()}
-            </span>
-          )}
+        {/* Avatar */}
+        {/* CHANGED:
+            - Replaced overflow-hidden shrink-0 with a dedicated wrapper div.
+            - logoImg ternary logic remains the same.
+        */}
+        <div className="w-[140px] h-[140px] rounded-3xl shrink-0">
+          <div className="w-full h-full bg-[#1a1a2e] rounded-3xl border-4 border-[#F5F5DC] shadow-2xl flex items-center justify-center overflow-hidden z-10">
+            {logoImg ? (
+              <img 
+                src={logoImg} 
+                alt="Logo" 
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <span className="text-3xl font-bold text-white">
+                {company.name.charAt(0).toUpperCase()}
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Name and Tags */}
-        <div className="flex-1 text-center md:text-left pb-2">
+        <div className="flex-1 text-center md:text-left pb-2 z-10">
           <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-3 tracking-tight">
             {company.name}
           </h1>
@@ -88,7 +101,7 @@ export default async function CompanyDetailPage({
         </div>
 
         {/* Action Buttons Group */}
-        <div className="flex flex-wrap gap-3 justify-center shrink-0 pb-2">
+        <div className="flex flex-wrap gap-3 justify-center shrink-0 pb-2 z-10">
           {isAdmin && (
             <>
               <button className="w-[140px] h-[52px] bg-[#C62828] hover:bg-red-700 rounded-xl text-white font-bold text-sm transition-colors shadow-md">
@@ -110,7 +123,8 @@ export default async function CompanyDetailPage({
       </div>
 
       {/* 3. INFO BOX */}
-      <div className="bg-white/60 backdrop-blur-md rounded-[32px] p-8 md:p-12 shadow-xl border border-white/40 mb-10">
+      {/* CHANGED: z-10 added */}
+      <div className="bg-white/70 backdrop-blur-md rounded-[32px] p-8 md:p-12 shadow-xl border border-white/20 mb-10 z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6">
           <div className="space-y-6">
             <div className="flex flex-col">
@@ -138,7 +152,7 @@ export default async function CompanyDetailPage({
         </div>
 
         {/* 4. DESCRIPTION */}
-        <div className="hidden sm:block mt-10 pt-10 border-t border-slate-200/60">
+        <div className="hidden sm:block mt-10 pt-10 border-t border-slate-200/60 z-10">
           <h3 className="text-2xl font-bold text-slate-900 mb-4">Company Description</h3>
           <p className="text-slate-600 text-lg leading-relaxed max-w-5xl">
             {company.description}
@@ -146,7 +160,9 @@ export default async function CompanyDetailPage({
         </div>
       </div>
 
-      <div className="flex justify-center pb-10">
+      {/* Footer Link */}
+      {/* CHANGED: z-10 added */}
+      <div className="flex justify-center pb-10 z-10">
         <Link 
           href="/company" 
           className="text-slate-500 hover:text-[#0062AD] transition-all underline underline-offset-8 decoration-1 decoration-slate-300 hover:decoration-[#0062AD] font-medium"
@@ -156,4 +172,4 @@ export default async function CompanyDetailPage({
       </div>
     </main>
   );
-}
+} 
