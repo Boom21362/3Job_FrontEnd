@@ -34,7 +34,7 @@ export function TravelCard(){
                     To your Profile!
                 </button>:<button className='bg-white text-[#0062AD] border border-[#0062AD] font-semibold py-5 px-50 m-2 rounded z-30 absolute 
                 hover:bg-cyan-600 hover:text-white hover:border-transparent hover:cursor-pointer'
-                onClick={(e)=>{ e.stopPropagation(); router.push('/api/auth/signin')}}>
+                onClick={(e)=>{ e.stopPropagation(); router.push('/auth/signin')}}>
                     Create Interviews NOW!
                 </button>}
             </div>
