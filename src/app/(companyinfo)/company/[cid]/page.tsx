@@ -2,7 +2,7 @@ import getCompany from "@/libs/getCompany";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Link from "next/link";
-import Image from "next/image"; // Recommended for Next.js
+import DeleteCompanyButton from "@/components/DeleteCompanyButton"
 
 export default async function CompanyDetailPage({
   params,
@@ -104,10 +104,8 @@ export default async function CompanyDetailPage({
         <div className="flex flex-wrap gap-3 justify-center shrink-0 pb-2 z-10">
           {isAdmin && (
             <>
-              <button className="w-[140px] h-[52px] bg-[#C62828] hover:bg-red-700 rounded-xl text-white font-bold text-sm transition-colors shadow-md">
-                Delete Company
-              </button>
-              <Link href={`/company/${cid}/edit`}>
+                <DeleteCompanyButton cid={cid} />
+                <Link href={`/company/${cid}/edit`}>
                 <div className="w-[140px] h-[52px] bg-[#008EFB] hover:bg-blue-500 rounded-xl text-white font-bold text-sm flex items-center justify-center transition-colors shadow-md">
                   Edit Company
                 </div>

@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { getSession } from "next-auth/react"
 
 interface Company {
   _id: string
@@ -50,13 +51,18 @@ export default function CompanyForm({ company, companyId }: CompanyFormProps) {
   }
 
   const handleSubmit = async () => {
+    const session = await getSession()
+    const token = (session?.user as any)?.accessToken
     const baseUrl = "https://3-job-back-end.vercel.app/api/v1"
     const url = isEdit ? `${baseUrl}/companies/${companyId}` : `${baseUrl}/companies`
     const method = isEdit ? "PUT" : "POST"
 
     await fetch(url, {
       method,
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
       body: JSON.stringify(form),
     })
 

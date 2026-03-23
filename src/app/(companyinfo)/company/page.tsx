@@ -37,7 +37,7 @@ export default async function CompanyPage() {
         {isAdmin && (
           <div style={{ marginBottom: "16px" }}>
             <Link href="/company/add">
-              <div style={{ display: "inline-flex", height: "52px", padding: "0 24px", background: "#0062AD", borderRadius: "10px", alignItems: "center", justifyContent: "center", fontFamily: "Inter", fontWeight: 700, fontSize: "16px", color: "#fff", cursor: "pointer" }}>
+              <div className="inline-flex h-[52px] px-6 bg-[#0062AD] hover:bg-[#004a82] rounded-xl items-center justify-center font-bold text-base text-white cursor-pointer transition-colors shadow-md">
                 Add Company
               </div>
             </Link>
