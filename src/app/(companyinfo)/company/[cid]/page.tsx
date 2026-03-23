@@ -133,7 +133,7 @@ export default async function CompanyDetailPage({
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">Email / Support</span>
-              <span className="text-xl text-slate-800 font-medium truncate">{company.website}</span>
+              <span className="text-xl text-slate-800 font-medium truncate"></span>
             </div>
           </div>
           
@@ -144,7 +144,7 @@ export default async function CompanyDetailPage({
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">Official Website</span>
-              <a href={`https://${company.website}`} target="_blank" className="text-xl text-blue-600 font-medium hover:underline truncate">
+              <a href={`${company.website}`} target="_blank" className="text-xl text-blue-600 font-medium hover:underline truncate">
                 {company.website}
               </a>
             </div>

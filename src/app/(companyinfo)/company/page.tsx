@@ -37,7 +37,7 @@ export default async function CompanyPage() {
         {isAdmin && (
           <div style={{ marginBottom: "16px" }}>
             <Link href="/company/add">
-              <div style={{ display: "inline-flex", height: "52px", padding: "0 24px", background: "#0062AD", borderRadius: "10px", alignItems: "center", justifyContent: "center", fontFamily: "Inter", fontWeight: 700, fontSize: "16px", color: "#fff", cursor: "pointer" }}>
+              <div style={{ display: "inline-flex", height: "52px", padding: "0 24px", background: "#0062AD", borderRadius: "10px", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: "16px", color: "#fff", cursor: "pointer" }}>
                 Add Company
               </div>
             </Link>

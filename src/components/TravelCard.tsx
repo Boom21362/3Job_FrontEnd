@@ -28,11 +28,11 @@ export function TravelCard(){
       />
       <Box sx={{ ml: 2, fontWeight:"bold", fontSize:40}}>4.5</Box>
     </Box>
-    { session? <button className='bg-[#F5F5DC] text-[#0062AD] border border-[#0062AD] font-semibold py-2 px-2 m-2 rounded z-30 absolute
+    { session? <button className='bg-[#F5F5DC] text-[#0062AD] border border-[#0062AD] font-semibold py-5 px-25 m-2 rounded z-30 absolute text-2xl
                 hover:bg-cyan-600 hover:text-white hover:border-transparent hover:cursor-pointer'
                 onClick={(e)=>{ e.stopPropagation(); router.push('/profile')}}>
                     To your Profile!
-                </button>:<button className='bg-white text-[#0062AD] border border-[#0062AD] font-semibold py-2 px-2 m-2 rounded z-30 absolute 
+                </button>:<button className='bg-white text-[#0062AD] border border-[#0062AD] font-semibold py-5 px-50 m-2 rounded z-30 absolute 
                 hover:bg-cyan-600 hover:text-white hover:border-transparent hover:cursor-pointer'
                 onClick={(e)=>{ e.stopPropagation(); router.push('/api/auth/signin')}}>
                     Create Interviews NOW!
