@@ -36,7 +36,7 @@ export function TravelCard(){
       {/* Button is now part of the flow, no more "weird" floating */}
       <button 
         className='w-full bg-white text-[#0062AD] border-2 border-[#0062AD] font-bold py-4 rounded-lg transition-all
-                   hover:bg-[#0062AD] hover:text-white text-xl shadow-md active:scale-95'
+                   hover:bg-[#0062AD] hover:text-white text-xl shadow-md active:scale-95  hover:-rotate-5'
         onClick={(e) => { e.stopPropagation(); router.push(session ? '/profile' : '/auth/register') }}
       >
         {session ? "To your Profile!" : "Create Interviews NOW!"}

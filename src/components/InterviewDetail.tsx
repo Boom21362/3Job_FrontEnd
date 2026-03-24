@@ -21,20 +21,20 @@ export default function InterviewDetailView({
     <main className="min-h-screen bg-[#F9F9F1] p-4 md:p-8 lg:px-[60px] font-sans relative">
       {/* 1. Header Banner */}
       <div className="absolute top-0 left-0 right-0 z-0 w-full h-[250px] overflow-hidden shadow-inner bg-[#1a1a2e] rounded-b-[40px]">
-        <div className="w-full h-full flex items-center justify-center text-white/5 text-5xl md:text-7xl font-black italic uppercase select-none">
+        <div className="w-full h-full flex items-center justify-center text-white text-5xl md:text-7xl font-black italic uppercase select-none">
           Interview Details
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10 ">
         {/* 2. Header Section */}
-        <div className="flex flex-col md:flex-row items-center md:items-end gap-6 mt-[160px] mb-10 p-4">
-          <div className="w-[140px] h-[140px] bg-[#3F3E3D] rounded-3xl border-4 border-[#F9F9F1] shadow-2xl flex items-center justify-center overflow-hidden flex-shrink-0">
+        <div className="flex flex-col md:flex-row items-center md:items-end gap-6 mt-[160px] mb-10 pt-10">
+          <div className="w-[140px] h-[140px] bg-white rounded-3xl border-4 border-[#F9F9F1] shadow-2xl flex items-center justify-center overflow-hidden flex-shrink-0">
             {company?.compimgsrc ? (
               <img
                 src={company.compimgsrc}
                 alt="Logo"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-all duration-500 hover:-rotate-10 hover:scale-110"
               />
             ) : (
               <span className="text-5xl font-bold text-white uppercase">
