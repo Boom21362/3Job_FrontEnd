@@ -18,6 +18,7 @@
 
     const token = (session.user as any).accessToken;
     const interviewData = await getInterview(iid, token);
+    console.log(interviewData)
 
     if (!interviewData || !interviewData.data) {
       return notFound();

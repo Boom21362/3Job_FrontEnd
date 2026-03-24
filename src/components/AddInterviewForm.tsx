@@ -119,6 +119,8 @@ export default function AddInterviewForm({
                 <DatePicker
                   value={bookingDate}
                   onChange={(newValue) => setBookingDate(newValue)}
+                  minDate={dayjs('2022-05-10')}
+                  maxDate={dayjs('2022-05-13')}
                   slotProps={{
                     textField: { fullWidth: true, variant: "outlined" },
                   }}
