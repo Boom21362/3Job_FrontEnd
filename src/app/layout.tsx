@@ -5,7 +5,7 @@ import TopMenu from "@/components/TopMenu";
 import { getServerSession } from "next-auth";
 import { AuthOptions } from "next-auth";
 import NextAuthProvider from "@/providers/NextAuthProvider";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from "@/libs/authOptions";
 import ReduxProvider from "@/redux/ReduxProvider";
 
 const geistSans = Geist({
