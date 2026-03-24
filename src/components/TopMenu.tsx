@@ -39,5 +39,20 @@ export default async function TopMenu(){
             }
             </div>        
         </div>
-    );
+        {session ? (
+          <Link href="/api/auth/signout">
+            <div className="flex items-center h-full px-2 text-cyan-600 text-sm">
+              Sign-Out of {session.user?.name}
+            </div>
+          </Link>
+        ) : (
+          <Link href="/auth/signin">
+            <div className="flex items-center h-full px-2 text-cyan-600 text-sm">
+              Sign-In
+            </div>
+          </Link>
+        )}
+      </div>
+    </div>
+  );
 }
