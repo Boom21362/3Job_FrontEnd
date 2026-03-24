@@ -2,7 +2,7 @@ import getCompany from "@/libs/getCompany";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Link from "next/link";
-import DeleteCompanyButton from "@/components/DeleteCompanyButton"
+import DeleteCompanyButton from "@/components/DeleteCompanyButton";
 
 export default async function CompanyDetailPage({
   params,
@@ -31,20 +31,19 @@ export default async function CompanyDetailPage({
 
   const bannerImg = getImageUrl(company.compbannersrc);
   const logoImg = getImageUrl(company.compimgsrc);
-  console.log(bannerImg)
-  console.log(logoImg)
+  console.log(bannerImg);
+  console.log(logoImg);
 
   return (
     // Replaced relative with static (default) so children's fixed/absolute positioning is relative to the viewport
     <main className="min-h-screen bg-[#F5F5DC] p-4 md:p-8 lg:px-[60px] font-sans ">
-      
       {/* 1. Banner Section */}
       <div className="absolute top-0 left-0 right-0 z-0 w-full h-[250px] overflow-hidden shadow-inner bg-[#D9D9D9] rounded-b-3xl">
         {bannerImg ? (
-          <img 
-            src={bannerImg} 
+          <img
+            src={bannerImg}
             alt="Company Banner"
-            referrerPolicy="no-referrer" 
+            referrerPolicy="no-referrer"
             className="w-full h-full object-cover"
           />
         ) : (
@@ -60,7 +59,6 @@ export default async function CompanyDetailPage({
           - Removed px-4 and added p-4.
       */}
       <div className="flex flex-col md:flex-row items-center md:items-end gap-6 mt-[180px] mb-10 p-4">
-        
         {/* Avatar */}
         {/* CHANGED:
             - Replaced overflow-hidden shrink-0 with a dedicated wrapper div.
@@ -69,9 +67,9 @@ export default async function CompanyDetailPage({
         <div className="w-[140px] h-[140px] rounded-3xl shrink-0">
           <div className="w-full h-full bg-[#1a1a2e] rounded-3xl border-4 border-[#F5F5DC] shadow-2xl flex items-center justify-center overflow-hidden z-10">
             {logoImg ? (
-              <img 
-                src={logoImg} 
-                alt="Logo" 
+              <img
+                src={logoImg}
+                alt="Logo"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover"
               />
@@ -90,8 +88,8 @@ export default async function CompanyDetailPage({
           </h1>
           <div className="flex flex-wrap gap-2 justify-center md:justify-start">
             {company.specializations.map((spec: string, i: number) => (
-              <span 
-                key={i} 
+              <span
+                key={i}
                 className="text-xs bg-[#E6F1FB] text-[#0C447C] rounded-full px-4 py-1.5 font-bold shadow-sm"
               >
                 {spec}
@@ -104,17 +102,19 @@ export default async function CompanyDetailPage({
         <div className="flex flex-wrap gap-3 justify-center shrink-0 pb-2 z-10">
           {isAdmin && (
             <>
-                <DeleteCompanyButton cid={cid} />
-                <Link href={`/company/${cid}/edit`}>
+              <DeleteCompanyButton cid={cid} />
+              <Link href={`/company/${cid}/edit`}>
                 <div className="w-[140px] h-[52px] bg-[#008EFB] hover:bg-blue-500 rounded-xl text-white font-bold text-sm flex items-center justify-center transition-colors shadow-md">
                   Edit Company
                 </div>
               </Link>
             </>
           )}
-          <Link href={`/interviews/create?companyId=${cid}`}>
-            <div className="w-[140px] h-[52px] bg-[#0062AD] hover:bg-[#004a82] rounded-xl text-white font-bold text-sm flex items-center justify-center text-center leading-tight transition-all shadow-md active:scale-95">
-              Booking<br/>Interview
+          <Link href={`/interview/add?companyId=${cid}`}>
+            <div className="w-[140px] h-[52px] bg-[#0062AD] hover:bg-[#004a82] rounded-xl text-white font-bold text-sm flex items-center justify-center text-center leading-tight transition-all shadow-md active:scale-95 cursor-pointer">
+              Booking
+              <br />
+              Interview
             </div>
           </Link>
         </div>
@@ -126,23 +126,39 @@ export default async function CompanyDetailPage({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6">
           <div className="space-y-6">
             <div className="flex flex-col">
-              <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">Phone Number</span>
-              <span className="text-xl text-slate-800 font-medium">{company.tel}</span>
+              <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">
+                Phone Number
+              </span>
+              <span className="text-xl text-slate-800 font-medium">
+                {company.tel}
+              </span>
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">Email / Support</span>
+              <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">
+                Email / Support
+              </span>
               <span className="text-xl text-slate-800 font-medium truncate"></span>
             </div>
           </div>
-          
+
           <div className="space-y-6">
             <div className="flex flex-col">
-              <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">Office Address</span>
-              <span className="text-xl text-slate-800 font-medium leading-relaxed">{company.address}</span>
+              <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">
+                Office Address
+              </span>
+              <span className="text-xl text-slate-800 font-medium leading-relaxed">
+                {company.address}
+              </span>
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">Official Website</span>
-              <a href={`${company.website}`} target="_blank" className="text-xl text-blue-600 font-medium hover:underline truncate">
+              <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">
+                Official Website
+              </span>
+              <a
+                href={`${company.website}`}
+                target="_blank"
+                className="text-xl text-blue-600 font-medium hover:underline truncate"
+              >
                 {company.website}
               </a>
             </div>
@@ -151,7 +167,9 @@ export default async function CompanyDetailPage({
 
         {/* 4. DESCRIPTION */}
         <div className="hidden sm:block mt-10 pt-10 border-t border-slate-200/60 z-10">
-          <h3 className="text-2xl font-bold text-slate-900 mb-4">Company Description</h3>
+          <h3 className="text-2xl font-bold text-slate-900 mb-4">
+            Company Description
+          </h3>
           <p className="text-slate-600 text-lg leading-relaxed max-w-5xl">
             {company.description}
           </p>
@@ -161,8 +179,8 @@ export default async function CompanyDetailPage({
       {/* Footer Link */}
       {/* CHANGED: z-10 added */}
       <div className="flex justify-center pb-10 z-10">
-        <Link 
-          href="/company" 
+        <Link
+          href="/company"
           className="text-slate-500 hover:text-[#0062AD] transition-all underline underline-offset-8 decoration-1 decoration-slate-300 hover:decoration-[#0062AD] font-medium"
         >
           Back to Companies
@@ -170,4 +188,4 @@ export default async function CompanyDetailPage({
       </div>
     </main>
   );
-} 
+}
