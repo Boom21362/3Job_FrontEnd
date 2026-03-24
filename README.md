@@ -1,3 +1,11 @@
+## Live Deployment & Personal Repository
+
+Vercel Link: https://3-job-front-end.vercel.app/
+
+Personal Repo (pre-caution): https://github.com/Boom21362/3Job_FrontEnd
+ 
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
