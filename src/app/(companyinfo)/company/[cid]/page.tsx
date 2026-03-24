@@ -1,6 +1,6 @@
 import getCompany from "@/libs/getCompany";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/libs/authOptions";
 import Link from "next/link";
 import DeleteCompanyButton from "@/components/DeleteCompanyButton"
 
