@@ -17,8 +17,8 @@ export function TravelCard(){
         <div className="w-[80%] shadow=lg mx-[10%] my-10 p- 2 rounded-lg bg-gray-200 flex flex-row">
             <VlogPlayer vdoSrc="/video/Generic_Recruitment_Ads.mp4" isPlaying={playing}></VlogPlayer>
             <div className="m-5"> 
-                <p className="text-2xl font-medium p-2 ">@ 3Jobs Book Interviews with your favorite companies 
-            <div className="text-2xl font-bold text-[#0062AD]">TODAY!</div></p>
+                <div className="text-2xl font-medium p-2 ">@ 3Jobs Book Interviews with your favorite companies 
+            <div className="text-2xl font-bold text-[#0062AD]">TODAY!</div></div>
                 <Box sx={{ width: 200, display: 'flex', alignItems: 'center' }}>
       <Rating
         name="text-feedback"
@@ -34,7 +34,7 @@ export function TravelCard(){
                     To your Profile!
                 </button>:<button className='bg-white text-[#0062AD] border border-[#0062AD] font-semibold py-5 px-50 m-2 rounded z-30 absolute 
                 hover:bg-cyan-600 hover:text-white hover:border-transparent hover:cursor-pointer'
-                onClick={(e)=>{ e.stopPropagation(); router.push('/auth/signin')}}>
+                onClick={(e)=>{ e.stopPropagation(); router.push('/auth/register')}}>
                     Create Interviews NOW!
                 </button>}
             </div>
