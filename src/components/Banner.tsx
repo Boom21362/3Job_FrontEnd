@@ -35,13 +35,9 @@
         />
 
         <h3 className={`text-xl text-white font-bold tracking-wide`}>
-            3Jobs 3Incomes 3Opportunities
+            3job. 3incomes 3opportunities
         </h3>
-        </div>
-                    {
-                        session? <div className='z-20 absolute top-5 right-10 font-semibold text-cyan-800 text-xl overflow-hidden'>Welcome! {session.user?.name}</div>:null
-                    }
-                    
+        </div>      
             </div>
         )
     }

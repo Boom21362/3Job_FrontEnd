@@ -81,7 +81,7 @@ export default function RegisterPage() {
           {isLoading ? <CircularProgress size={24} color="inherit" /> : "Create Account"}
         </Button>
          <div className="text-sm mt-2">
-            Already have account? <Link href='/auth/signin' className="!text-[#004a82]">Log-in Here!</Link>
+            Already have account? <Link href='/auth/signin' className="!text-[#004a82]">Sign-in Here!</Link>
           </div>
       </Box>
     </div>

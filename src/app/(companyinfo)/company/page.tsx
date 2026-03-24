@@ -19,7 +19,7 @@ export default async function CompanyPage() {
     <main
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(180deg, #F5F5DC 0%, rgba(255,255,57,0.29) 100%)",
+        background: "linear-gradient(180deg, #F5F5DC 0%, #ffff394a 100%)",
         padding: "40px 165px",
         position: "relative",
         overflow: "hidden",

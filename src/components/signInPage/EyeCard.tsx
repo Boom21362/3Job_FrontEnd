@@ -37,8 +37,8 @@ export function EyeCard() {
     height={150}
     alt="3Job logo"
   />
-          <p className="text-xl font-medium p-2">Book Interviews with your favorite companies 
-            <div className="text-2xl font-bold">TODAY!</div></p>
+          <div className="text-xl font-medium p-2">Book Interviews with your favorite companies 
+            <div className="text-2xl font-bold">TODAY!</div></div>
         </div>
       </div>
     </div>

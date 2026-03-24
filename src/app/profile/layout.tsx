@@ -10,11 +10,11 @@ export default function ProfileLayout({
   interviewsList: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-left w-full min-h-screen bg-white pt-10 ">
+    <main className="flex flex-col items-left w-full min-h-screen bg-white pt-10 z-10 bg-[#F5F5DC]">
       
       {children} 
 
-      <div className="flex flex-row items-start justify-center gap-6 mt-0 w-full max-w-5xl px-4 ">
+      <div className="flex flex-row items-start justify-center gap-6 mt-0 w-full max-w-5xl px-4 z-10 ">
     
         <div className="flex-none"> 
           {me}
@@ -25,6 +25,6 @@ export default function ProfileLayout({
         </div>
 
       </div>
-    </div>
+    </main>
   );
 }
