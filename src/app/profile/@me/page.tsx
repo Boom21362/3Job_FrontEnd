@@ -1,6 +1,6 @@
 import getUserProfile from "@/libs/getUserProfile";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/libs/authOptions";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 

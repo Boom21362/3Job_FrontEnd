@@ -1,5 +1,4 @@
-import getInterviews from "@/libs/getInterviews";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/libs/authOptions";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import InterviewCard from "@/components/InterviewCard";

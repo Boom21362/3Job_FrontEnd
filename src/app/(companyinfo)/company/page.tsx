@@ -3,7 +3,7 @@ import CompanyCatalog from "@/components/CompanyCatalog"
 import { Suspense } from "react"
 import { LinearProgress } from "@mui/material"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/libs/authOptions"
 import Link from "next/link"
 
 export default async function CompanyPage() {
@@ -19,7 +19,7 @@ export default async function CompanyPage() {
     <main
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(180deg, #F5F5DC 0%, rgba(255,255,57,0.29) 100%)",
+        background: "linear-gradient(180deg, #F5F5DC 0%, #ffff394a 100%)",
         padding: "40px 165px",
         position: "relative",
         overflow: "hidden",
@@ -44,11 +44,24 @@ export default async function CompanyPage() {
           </div>
         )}
 
-        {/* list บริษัท ส่ง isAdmin ไปให้ CompanyCatalog */}
-        <Suspense fallback={<p>Loading ... <LinearProgress /></p>}>
-          <CompanyCatalog companyJson={companies} />
-        </Suspense>
-      </div>
+          <Suspense fallback={
+  <p>
+    Loading ... 
+    <LinearProgress 
+      sx={{
+        height: 10,           
+        borderRadius: 5,     
+        backgroundColor: '#e0e0d1', 
+        '& .MuiLinearProgress-bar': {
+          backgroundColor: '#0062AD',
+        },
+      }} 
+    />
+  </p>
+}>
+  <CompanyCatalog companyJson={companies} />
+</Suspense>
+        </div>
     </main>
   )
 }

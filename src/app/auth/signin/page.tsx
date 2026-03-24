@@ -73,7 +73,7 @@ export default function SignInPage() {
             fullWidth 
             sx={{ mt: 3, bgcolor: '#0062AD', '&:hover': { bgcolor: '#004a82' } }}
           >
-            {isLoading ? <CircularProgress size={24} color="inherit" /> : "Login"}
+            {isLoading ? <CircularProgress size={24} color="inherit" /> : "Sign-in "}
           </Button>
           <div className="text-sm mt-2">
             Don't have account? <Link href='/auth/register' className="!text-[#004a82]">Register Here!</Link>

@@ -15,9 +15,14 @@ export function VlogPlayer({vdoSrc, isPlaying} : {vdoSrc:string,isPlaying:boolea
     }
     },[isPlaying])
 
-    useWindowListener("resize",(e)=>{alert('Window width : '+ (e.target as Window).innerWidth)})
+    useWindowListener("resize",(e)=>{})
 
-    return(
-        <video className="w-[40%]" ref={vdoRef} src={vdoSrc} controls loop muted/>
-    );
+    return (
+  <video 
+    src={vdoSrc} 
+    className="w-full h-full object-cover" // This makes it fill the container
+    controls loop muted
+    autoPlay={isPlaying}
+  />
+);
 }

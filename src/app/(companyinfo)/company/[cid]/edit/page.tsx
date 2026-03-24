@@ -12,5 +12,7 @@ export default async function EditCompanyPage({
   const companyData = await getCompany(cid)
   const company = companyData.data
 
+  console.log("company from API:", JSON.stringify(company, null, 2))
+  
   return <CompanyForm company={company} companyId={cid} />
 }

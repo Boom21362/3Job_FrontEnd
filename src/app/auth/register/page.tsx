@@ -21,7 +21,14 @@ export default function RegisterPage() {
     
     // We create a plain object and cast it to 'any' to avoid the TS error
     const userData = Object.fromEntries(formData.entries());
+    const tel = userData.tel as string;
+    const telPattern = /^0\d{2}-\d{7}$/; // matches 0XX-XXXXXXX
 
+  if (!telPattern.test(tel)) {
+    alert("Phone number must be in the format 0XX-XXXXXXX");  
+    setIsLoading(false);
+    return; // stop execution
+  }
     try {
       await register(userData as any); 
       router.push("/auth/signin"); // Send them to the login eyes!
@@ -60,7 +67,7 @@ export default function RegisterPage() {
         {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
         <TextField name="name" label="Full Name" fullWidth margin="dense" required />
-        <TextField name="tel" label="Phone Number" fullWidth margin="dense" required />
+        <TextField name="tel" label="Phone Number (0XX-XXXXXXX)" fullWidth margin="dense" required />
         <TextField name="email" label="Email" type="email" fullWidth margin="dense" required />
         <TextField name="password" label="Password" type="password" fullWidth margin="dense" required />
         
@@ -74,7 +81,7 @@ export default function RegisterPage() {
           {isLoading ? <CircularProgress size={24} color="inherit" /> : "Create Account"}
         </Button>
          <div className="text-sm mt-2">
-            Already have account? <Link href='/auth/signin' className="!text-[#004a82]">Log-in Here!</Link>
+            Already have account? <Link href='/auth/signin' className="!text-[#004a82]">Sign-in Here!</Link>
           </div>
       </Box>
     </div>
