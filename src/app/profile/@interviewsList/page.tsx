@@ -2,6 +2,7 @@ import { authOptions } from "@/libs/authOptions";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import InterviewCard from "@/components/InterviewCard";
+import getInterviews from "@/libs/getInterviews";
 
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);

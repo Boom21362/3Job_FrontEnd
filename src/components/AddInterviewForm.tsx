@@ -76,7 +76,7 @@ export default function AddInterviewForm({
 
   return (
     <main className="min-h-screen bg-[#F9F9F1] p-4 md:p-8 lg:px-[60px] font-sans relative">
-      <div className="absolute top-0 left-0 right-0 z-0 w-full h-[220px] bg-[#1a1a2e] rounded-b-[40px] flex items-center justify-center text-white/10 text-6xl font-black italic uppercase">
+      <div className="absolute top-0 left-0 right-0 z-0 w-full h-[220px] bg-[#1a1a2e] rounded-b-[40px] flex items-center justify-center text-white  text-6xl font-black italic uppercase">
         New Interview
       </div>
 

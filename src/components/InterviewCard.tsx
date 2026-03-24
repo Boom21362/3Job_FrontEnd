@@ -63,11 +63,14 @@ export default function InterviewCard({
     >
       <div className="flex items-center gap-6">
         {/* Avatar */}
-        <div className="relative w-16 h-16 bg-[#3F3E3D] rounded-xl flex items-center justify-center border-4 border-[#FDFCE5] shadow-sm flex-shrink-0 transition-all duration-500 group-hover:scale-110">
-          <span className="text-white text-2xl font-bold">
-            {titleDisplay[0]}
-          </span>
-        </div>
+       <div className="relative w-16 h-16 bg-[#0062AD] rounded-full flex items-center justify-center border-4 border-[#FDFCE5] shadow-sm flex-shrink-0 transition-all duration-500 group-hover:scale-110 overflow-hidden">
+  {/* Span removed, image added directly and styled */}
+  <img
+    className="w-full h-full object-cover rounded-full"
+    src="/img/ProfilePic.png"
+    alt="Profile"
+  />
+</div>
 
         <div className="flex flex-col">
           <h3 className="text-xl font-bold text-black leading-tight">
