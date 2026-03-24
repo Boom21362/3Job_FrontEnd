@@ -20,7 +20,7 @@ export default function InterviewDetailView({
 }) {
   const router = useRouter();
   const company = interview.company;
-  console.log(company)
+  console.log(company);
 
   // State Management
   const [bookingDate, setBookingDate] = useState<Dayjs | null>(
@@ -35,11 +35,16 @@ export default function InterviewDetailView({
       return;
     }
 
-    const startDate = dayjs('2022-05-10');
-    const endDate = dayjs('2022-05-13');
+    const startDate = dayjs("2022-05-10");
+    const endDate = dayjs("2022-05-13");
 
-    if (bookingDate.isBefore(startDate, 'day') || bookingDate.isAfter(endDate, 'day')) {
-      alert("Invalid Date: Interview date must be between 10-05-2022 and 13-05-2022");
+    if (
+      bookingDate.isBefore(startDate, "day") ||
+      bookingDate.isAfter(endDate, "day")
+    ) {
+      alert(
+        "Invalid Date: Interview date must be between 10-05-2022 and 13-05-2022",
+      );
       return;
     }
 
@@ -74,16 +79,16 @@ export default function InterviewDetailView({
           <div className="w-[120px] h-[120px] bg-[#3F3E3D] rounded-3xl border-4 border-[#F9F9F1] shadow-2xl flex items-center justify-center flex-shrink-0 overflow-hidden">
             <span className="text-4xl font-bold text-white">
               {company?.compimgsrc ? (
-              <img
-                src={company.compimgsrc}
-                alt="Logo"
-                className="w-full h-full object-cover transition-all duration-500 hover:-rotate-10 hover:scale-110 "
-              />
-            ) : (
-              <span className="text-5xl font-bold text-white uppercase">
-                {company?.name?.[0] || "I"}
-              </span>
-            )}
+                <img
+                  src={company.compimgsrc}
+                  alt="Logo"
+                  className="w-full h-full object-cover transition-all duration-500 hover:-rotate-10 hover:scale-110 "
+                />
+              ) : (
+                <span className="text-5xl font-bold text-white uppercase">
+                  {company?.name?.[0] || "I"}
+                </span>
+              )}
             </span>
           </div>
 
@@ -91,12 +96,14 @@ export default function InterviewDetailView({
             <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
               Update Interview Schedule
             </h1>
-            <p className="text-[#0062AD] font-bold text-lg flex flex-col">
+            <div className="text-[#0062AD] font-bold text-lg flex flex-col">
               Interview ID:{" "}
               <span className="text-slate-500 font-mono text-sm">{iid}</span>
               Company : {""}
-              <div className="text-slate-500 font-mono text-sm">{company.name}</div>
-            </p>  
+              <div className="text-slate-500 font-mono text-sm">
+                {company.name}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -113,8 +120,8 @@ export default function InterviewDetailView({
                   className="bg-white rounded-2xl w-full"
                   value={bookingDate}
                   onChange={(newValue) => setBookingDate(newValue)}
-                  minDate={dayjs('2022-05-10')}
-                  maxDate={dayjs('2022-05-13')}
+                  minDate={dayjs("2022-05-10")}
+                  maxDate={dayjs("2022-05-13")}
                   slotProps={{
                     textField: {
                       variant: "outlined",

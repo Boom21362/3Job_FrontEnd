@@ -1,54 +1,60 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface Company {
-  _id: string
-  name: string
-  description: string
-  address: string
-  tel: string
-  website: string
-  specializations: string[]
-  compimgsrc?: string 
-  compbannersrc?: string
+  _id: string;
+  name: string;
+  description: string;
+  address: string;
+  tel: string;
+  website: string;
+  specializations: string[];
+  compimgsrc?: string;
+  compbannersrc?: string;
 }
 
 interface CompanyListProps {
-  companies: Company[]
-  isAdmin: boolean
+  companies: Company[];
+  isAdmin: boolean;
 }
 
 export default function CompanyList({ companies }: CompanyListProps) {
-  const [search, setSearch] = useState("")
-  const [activeTags, setActiveTags] = useState<string[]>([])
+  const [search, setSearch] = useState("");
+  const [activeTags, setActiveTags] = useState<string[]>([]);
 
   // Get unique specializations from all companies dynamically
   const allTags = Array.from(
-    new Set(companies.flatMap((c) => c.specializations || []))
-  )
+    new Set(companies.flatMap((c) => c.specializations || [])),
+  );
+
+  const router = useRouter();
+  const handleCardClick = (id: string) => {
+    router.push(`/company/${id}`);
+  };
 
   // Toggle tag on/off
   const handleTagToggle = (tag: string) => {
     setActiveTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
-    )
-  }
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
+    );
+  };
 
   const filtered = companies.filter((c) => {
     // Search filter
     const matchSearch =
       c.name.toLowerCase().includes(search.toLowerCase()) ||
-      c.description.toLowerCase().includes(search.toLowerCase())
+      c.description.toLowerCase().includes(search.toLowerCase());
 
     // Tag filter: if no tags active, show all
     const matchTag =
       activeTags.length === 0 ||
-      activeTags.some((tag) => c.specializations?.includes(tag))
+      activeTags.some((tag) => c.specializations?.includes(tag));
 
-    return matchSearch && matchTag
-  })
+    return matchSearch && matchTag;
+  });
 
   const getDirectDriveUrl = (url: string | undefined) => {
     if (!url || url.trim() === "") return null;
@@ -56,13 +62,13 @@ export default function CompanyList({ companies }: CompanyListProps) {
     if (match && match[1]) {
       return `https://drive.google.com/uc?export=view&id=${match[1]}`;
     }
-    if (url.startsWith('http')) {
+    if (url.startsWith("http")) {
       return url;
     }
-    return null; 
-  }
+    return null;
+  };
 
-  const [showFilter, setShowFilter] = useState(false)
+  const [showFilter, setShowFilter] = useState(false);
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4">
@@ -80,9 +86,33 @@ export default function CompanyList({ companies }: CompanyListProps) {
           className="h-[70px] w-[120px] bg-white rounded-xl flex flex-col items-center justify-center shrink-0 gap-1 font-bold text-sm text-[#0062AD] border border-gray-300 cursor-pointer hover:bg-[#E6F1FB] hover:border-[#0062AD] transition-colors"
         >
           <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
-            <line x1="0" y1="1" x2="16" y2="1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            <line x1="3" y1="6" x2="13" y2="6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            <line x1="6" y1="11" x2="10" y2="11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            <line
+              x1="0"
+              y1="1"
+              x2="16"
+              y2="1"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+            <line
+              x1="3"
+              y1="6"
+              x2="13"
+              y2="6"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+            <line
+              x1="6"
+              y1="11"
+              x2="10"
+              y2="11"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
           </svg>
           Filter {activeTags.length > 0 && `(${activeTags.length})`}
         </button>
@@ -117,24 +147,28 @@ export default function CompanyList({ companies }: CompanyListProps) {
 
       <div className="flex flex-col gap-6 pb-10">
         {filtered.length === 0 ? (
-          <p className="text-[#969696] text-xl text-center mt-10">Company Not Found</p>
+          <p className="text-[#969696] text-xl text-center mt-10">
+            Company Not Found
+          </p>
         ) : (
           filtered.map((company) => {
             const logoUrl = getDirectDriveUrl(company.compimgsrc);
             return (
-              <Link key={company._id} href={`/company/${company._id}`}>
+              <div
+                key={company._id}
+                onClick={() => handleCardClick(company._id)}
+              >
                 <div className="group flex flex-col md:flex-row items-center gap-6 bg-white shadow-[inset_0px_4px_4px_rgba(0,0,0,0.15)] rounded-[30px] p-6 hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-[#0062AD]/30">
-                  
                   {/* Logo Box */}
                   <div className="w-full md:w-[250px] h-[150px] bg-[#E9E9E9] rounded-xl shrink-0 flex items-center justify-center overflow-hidden shadow-sm">
                     {logoUrl ? (
-                      <img 
-                        src={logoUrl} 
-                        alt={`${company.name} logo`} 
+                      <img
+                        src={logoUrl}
+                        alt={`${company.name} logo`}
                         referrerPolicy="no-referrer"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         onError={(e) => {
-                          e.currentTarget.style.display = 'none';
+                          e.currentTarget.style.display = "none";
                           const fallback = `<span class="text-4xl font-bold text-slate-700">${company.name.charAt(0).toUpperCase()}</span>`;
                           e.currentTarget.parentElement!.innerHTML = fallback;
                         }}
@@ -170,15 +204,15 @@ export default function CompanyList({ companies }: CompanyListProps) {
                   </div>
 
                   {/* Booking Button */}
-                   <Link href={`/interview/add?companyId=${company._id}`}>
-            <div className="w-full md:w-[180px] h-[80px] bg-[#0062AD] hover:bg-[#004a82] rounded-xl flex items-center justify-center shrink-0 font-bold text-lg text-white text-center px-4 transition-colors cursor-pointer">
-              Booking
-              <br />
-              Interview
-            </div>
-          </Link>
+                  <Link href={`/interview/add?companyId=${company._id}`}>
+                    <div className="w-full md:w-[180px] h-[80px] bg-[#0062AD] hover:bg-[#004a82] rounded-xl flex items-center justify-center shrink-0 font-bold text-lg text-white text-center px-4 transition-colors cursor-pointer">
+                      Booking
+                      <br />
+                      Interview
+                    </div>
+                  </Link>
                 </div>
-              </Link>
+              </div>
             );
           })
         )}
