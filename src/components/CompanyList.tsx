@@ -204,7 +204,9 @@ export default function CompanyList({ companies }: CompanyListProps) {
                   </div>
 
                   {/* Booking Button */}
-                  <Link href={`/interview/add?companyId=${company._id}`}>
+                  <Link href={`/interview/add?companyId=${company._id}`} onClick={(e) => {
+      e.stopPropagation(); 
+    }}>
                     <div className="w-full md:w-[180px] h-[80px] bg-[#0062AD] hover:bg-[#004a82] rounded-xl flex items-center justify-center shrink-0 font-bold text-lg text-white text-center px-4 transition-colors cursor-pointer">
                       Booking
                       <br />
