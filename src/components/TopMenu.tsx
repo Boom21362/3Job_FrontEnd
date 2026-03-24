@@ -17,8 +17,19 @@ export default async function TopMenu(){
             width={0} height={0} sizes='100vh'/>
             </Link>
             <TopMenuItem title='Companies' pageref='/company'/>
-            <TopMenuItem title='Make Interviews' pageref='/interview/add'/>
-            <TopMenuItem title='Your Profile' pageref='/profile'/>
+            {
+                session? 
+                <TopMenuItem title='Make Interviews' pageref='/interview/add'/>
+                :
+                <TopMenuItem title='Make Interviews' pageref='/auth/signin'/>
+            }
+            {
+                session? 
+                <TopMenuItem title='Your Profile' pageref='/profile'/>
+                :
+                <TopMenuItem title='Your Profile' pageref='/auth/signin'/>
+            }
+            
             <div className='flex flex-row absolute right-0'>
                 <div className='flex items-center h-full pr-3 py-4 text-cyan-600 text-sm'>
                 <TopMenuItem title='Register' pageref='/auth/register'/>
