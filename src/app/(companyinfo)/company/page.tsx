@@ -3,7 +3,7 @@ import CompanyCatalog from "@/components/CompanyCatalog"
 import { Suspense } from "react"
 import { LinearProgress } from "@mui/material"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/libs/authOptions"
 import Link from "next/link"
 
 export default async function CompanyPage() {
