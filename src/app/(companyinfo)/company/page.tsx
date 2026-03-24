@@ -44,11 +44,24 @@ export default async function CompanyPage() {
           </div>
         )}
 
-        {/* list บริษัท ส่ง isAdmin ไปให้ CompanyCatalog */}
-        <Suspense fallback={<p>Loading ... <LinearProgress /></p>}>
-          <CompanyCatalog companyJson={companies} />
-        </Suspense>
-      </div>
+          <Suspense fallback={
+  <p>
+    Loading ... 
+    <LinearProgress 
+      sx={{
+        height: 10,           
+        borderRadius: 5,     
+        backgroundColor: '#e0e0d1', 
+        '& .MuiLinearProgress-bar': {
+          backgroundColor: '#0062AD',
+        },
+      }} 
+    />
+  </p>
+}>
+  <CompanyCatalog companyJson={companies} />
+</Suspense>
+        </div>
     </main>
   )
 }
