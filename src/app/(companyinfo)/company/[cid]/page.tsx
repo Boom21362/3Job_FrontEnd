@@ -129,10 +129,10 @@ export default async function CompanyDetailPage({
               <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">Phone Number</span>
               <span className="text-xl text-slate-800 font-medium">{company.tel}</span>
             </div>
-            <div className="flex flex-col">
+            {/* <div className="flex flex-col">
               <span className="text-sm font-bold text-[#0062AD] uppercase tracking-wider mb-1">Email / Support</span>
               <span className="text-xl text-slate-800 font-medium truncate"></span>
-            </div>
+            </div> */}
           </div>
           
           <div className="space-y-6">
