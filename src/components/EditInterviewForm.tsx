@@ -19,6 +19,7 @@ export default function EditInterviewForm({
   iid: string;
 }) {
   const router = useRouter();
+  const company = interview.company;
 
   // State Management
   const [bookingDate, setBookingDate] = useState<Dayjs | null>(
@@ -63,7 +64,11 @@ export default function EditInterviewForm({
         <div className="flex flex-col md:flex-row items-center md:items-end gap-6 mt-[140px] mb-10 p-4">
           <div className="w-[120px] h-[120px] bg-[#3F3E3D] rounded-3xl border-4 border-[#F9F9F1] shadow-2xl flex items-center justify-center flex-shrink-0">
             <span className="text-4xl font-bold text-white">
-              {interview.company?.name?.[0] || "I"}
+              <img
+                src={company.compimgsrc}
+                alt="Logo"
+                className="w-full h-full objec  t-cover transition-all duration-500 hover:-rotate-10 hover:scale-110"
+              />
             </span>
           </div>
 
